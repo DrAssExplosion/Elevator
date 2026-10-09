@@ -95,6 +95,30 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "RebindCurrentControl",
+                    "type": "Button",
+                    "id": "f89bba50-2d1c-4ad7-a952-0a7a44791d8d",
+                    "interactions": "",
+                    "codename": "",
+                    "processors": "",
+                    "groups": "",
+                    "deprecated": false,
+                    "expectedControlType": "Button",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CancelRebind",
+                    "type": "Button",
+                    "id": "860ea335-8281-433a-85e4-603a75a4fffd",
+                    "interactions": "",
+                    "codename": "",
+                    "processors": "",
+                    "groups": "",
+                    "deprecated": false,
+                    "expectedControlType": "Button",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -502,6 +526,28 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "RebindCurrentControl",
+                    "id": "1ce20643-1f16-4a4d-9e9e-812b845f0422",
+                    "path": null,
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RebindCurrentControl",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "CancelRebind",
+                    "id": "c3d1a6ef-6565-4e2b-856b-1814c5debf1f",
+                    "path": null,
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CancelRebind",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
