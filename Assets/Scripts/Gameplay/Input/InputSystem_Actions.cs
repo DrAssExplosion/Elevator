@@ -193,6 +193,30 @@ namespace Unity.MP_FPS
                     ""interactions"": """",
                     ""initialStateCheck"": false,
                     ""priority"": 0
+                },
+                {
+                    ""name"": ""RebindCurrentControl"",
+                    ""type"": ""Button"",
+                    ""id"": ""22ff8a53-06ec-4847-b866-720edbec1c34"",
+                    ""interactions"": """",
+                    ""codename"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""deprecated"": false,
+                    ""expectedControlType"": ""Button"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CancelRebind"",
+                    ""type"": ""Button"",
+                    ""id"": ""b20327d0-6b8c-4fa0-ad35-bfb0d0e7af3f"",
+                    ""interactions"": """",
+                    ""codename"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""deprecated"": false,
+                    ""expectedControlType"": ""Button"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -600,6 +624,28 @@ namespace Unity.MP_FPS
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""RebindCurrentControl"",
+                    ""id"": ""2912ab48-9318-4656-bde5-5b93741a1846"",
+                    ""path"": null,
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RebindCurrentControl"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""CancelRebind"",
+                    ""id"": ""399ed55f-2f6a-43f0-9abb-666eec06acd4"",
+                    ""path"": null,
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CancelRebind"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }

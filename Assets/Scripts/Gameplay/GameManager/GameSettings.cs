@@ -16,6 +16,7 @@ namespace Unity.MP_FPS
     public enum MainMenuState
     {
         MainMenuScreen,
+        SettingsScreen,
         StartHostPopup,
         DirectConnectPopUp,
         JoinCodePopUp,
@@ -41,6 +42,14 @@ namespace Unity.MP_FPS
         const string k_PlayerCharacterKey = "PlayerCharacer";
         const string k_ConnectionModeKey = "ConnectionMode";
         const string k_SessionNameKey = "SessionName";
+        const string k_MouseSensitivityKey = "MouseSensitivity";
+        const string k_AudioVolumeKey = "AudioVolume";
+        const string k_MicrophoneVolumeKey = "MicrophoneVolume";
+        const string k_AudioOutputDeviceKey = "AudioOutputDevice";
+        const string k_AudioInputDeviceKey = "AudioInputDevice";
+        const string k_LanguageKey = "Language";
+
+        public static readonly string[] SupportedLanguages = { "English", "Русский" };
 
         GameSettings()
         {
@@ -48,6 +57,12 @@ namespace Unity.MP_FPS
             m_PlayerCharacter = PlayerPrefs.GetInt(k_PlayerCharacterKey, 0);  
             m_ConnectionMode = PlayerPrefs.GetInt(k_ConnectionModeKey, 0);
             m_SessionName = PlayerPrefs.GetString(k_SessionNameKey, "default-session");
+            m_MouseSensitivity = PlayerPrefs.GetFloat(k_MouseSensitivityKey, DefaultMouseSensitivity);
+            m_AudioVolume = PlayerPrefs.GetFloat(k_AudioVolumeKey, 1.0f);
+            m_MicrophoneVolume = PlayerPrefs.GetFloat(k_MicrophoneVolumeKey, 1.0f);
+            m_AudioOutputDevice = PlayerPrefs.GetString(k_AudioOutputDeviceKey, string.Empty);
+            m_AudioInputDevice = PlayerPrefs.GetString(k_AudioInputDeviceKey, string.Empty);
+            m_Language = PlayerPrefs.GetString(k_LanguageKey, System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ru" ? "Русский" : "English");
         }
 
         public event EventHandler<BindablePropertyChangedEventArgs> propertyChanged;
@@ -88,6 +103,7 @@ namespace Unity.MP_FPS
 
                 m_MainMenuState = value;
                 Notify(MainMenuStylePropertyName);
+                Notify(SettingsMenuStylePropertyName);
                 Notify(JoinSessionStylePropertyName);
                 Notify(StartHostStylePropertyName);
                 Notify(DirectConnectStylePropertyName);
@@ -113,6 +129,12 @@ namespace Unity.MP_FPS
         DisplayStyle MainMenuStyle => m_GameState == GlobalGameState.MainMenu && 
                                       MainMenuState == MainMenuState.MainMenuScreen ? 
                                       DisplayStyle.Flex : DisplayStyle.None;
+
+        public static readonly string SettingsMenuStylePropertyName = nameof(SettingsMenuStyle);
+        [CreateProperty]
+        DisplayStyle SettingsMenuStyle => m_GameState == GlobalGameState.MainMenu &&
+                                          MainMenuState == MainMenuState.SettingsScreen ?
+                                          DisplayStyle.Flex : DisplayStyle.None;
 
         public static readonly string JoinSessionStylePropertyName = nameof(JoinSessionStyle);
         [CreateProperty]
@@ -241,9 +263,139 @@ namespace Unity.MP_FPS
             }
         }
 
+        /// <summary>
+        /// Default mouse look sensitivity, matching the original hardcoded value.
+        /// </summary>
+        public const float DefaultMouseSensitivity = 3.7f;
+
+        float m_MouseSensitivity = DefaultMouseSensitivity;
+        [CreateProperty]
+        public float MouseSensitivity
+        {
+            get => m_MouseSensitivity;
+            set
+            {
+                if (Mathf.Approximately(m_MouseSensitivity, value))
+                    return;
+
+                m_MouseSensitivity = value;
+                PlayerPrefs.SetFloat(k_MouseSensitivityKey, value);
+            }
+        }
+
+        float m_AudioVolume = 1.0f;
+        [CreateProperty]
+        public float AudioVolume
+        {
+            get => m_AudioVolume;
+            set
+            {
+                if (Mathf.Approximately(m_AudioVolume, value))
+                    return;
+
+                m_AudioVolume = Mathf.Clamp01(value);
+                PlayerPrefs.SetFloat(k_AudioVolumeKey, m_AudioVolume);
+                Notify(AudioVolumeDbPropertyName);
+            }
+        }
+
+        public static readonly string AudioVolumeDbPropertyName = nameof(AudioVolumeDb);
+        [CreateProperty]
+        public float AudioVolumeDb => Mathf.Log10(Mathf.Max(m_AudioVolume, 0.0001f)) * 20.0f;
+
+        float m_MicrophoneVolume = 1.0f;
+        [CreateProperty]
+        public float MicrophoneVolume
+        {
+            get => m_MicrophoneVolume;
+            set
+            {
+                if (Mathf.Approximately(m_MicrophoneVolume, value))
+                    return;
+
+                m_MicrophoneVolume = Mathf.Clamp01(value);
+                PlayerPrefs.SetFloat(k_MicrophoneVolumeKey, m_MicrophoneVolume);
+            }
+        }
+
+        string m_AudioOutputDevice = string.Empty;
+        [CreateProperty]
+        public string AudioOutputDevice
+        {
+            get => m_AudioOutputDevice;
+            set
+            {
+                if (m_AudioOutputDevice == value)
+                    return;
+
+                m_AudioOutputDevice = value ?? string.Empty;
+                PlayerPrefs.SetString(k_AudioOutputDeviceKey, m_AudioOutputDevice);
+            }
+        }
+
+        string m_AudioInputDevice = string.Empty;
+        [CreateProperty]
+        public string AudioInputDevice
+        {
+            get => m_AudioInputDevice;
+            set
+            {
+                if (m_AudioInputDevice == value)
+                    return;
+
+                m_AudioInputDevice = value ?? string.Empty;
+                PlayerPrefs.SetString(k_AudioInputDeviceKey, m_AudioInputDevice);
+            }
+        }
+
+        string m_Language = "English";
+        [CreateProperty]
+        public string Language
+        {
+            get => m_Language;
+            set
+            {
+                if (m_Language == value || string.IsNullOrEmpty(value))
+                    return;
+
+                m_Language = value;
+                PlayerPrefs.SetString(k_LanguageKey, value);
+                Localization.SetLanguage(value);
+                m_LocalizationRevision++;
+                Notify(LocalizedStringsPropertyName);
+            }
+        }
+
+        /// <summary>
+        /// Bump counter used as a binding source to make UI elements re-localize when the language changes.
+        /// </summary>
+        public static readonly string LocalizedStringsPropertyName = nameof(LocalizationRevision);
+        int m_LocalizationRevision;
+        [CreateProperty]
+        public int LocalizationRevision => m_LocalizationRevision;
+
         public static readonly string MainMenuSceneLoadedPropertyName = nameof(MainMenuSceneLoadedStyle);
         [CreateProperty]
         DisplayStyle MainMenuSceneLoadedStyle => m_MainMenuSceneLoaded ? DisplayStyle.None : DisplayStyle.Flex;
+
+        /// <summary>
+        /// Applies the persisted settings that need to be restored at startup (audio output device, language).
+        /// </summary>
+        public void ApplySettings()
+        {
+            if (!string.IsNullOrEmpty(m_AudioOutputDevice))
+                AudioOutputConfiguration.SetOutputDevice(m_AudioOutputDevice);
+
+            Localization.SetLanguage(m_Language);
+            ApplyAudioVolume();
+        }
+
+        /// <summary>
+        /// Pushes the <see cref="AudioVolume"/> setting into Unity's audio output.
+        /// The project's SoundSystem routes its emitters through the built-in audio listener, so scaling
+        /// <c>AudioListener.volume</c> is what actually changes the perceived master volume.
+        /// </summary>
+        public void ApplyAudioVolume() => UnityEngine.Audio.AudioListener.volume = m_AudioVolume;
 
         bool m_MainMenuSceneLoaded;
         public bool MainMenuSceneLoaded

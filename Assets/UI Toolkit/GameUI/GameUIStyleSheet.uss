@@ -228,3 +228,87 @@ ProgressBar .unity-progress-bar__progress {
 .section-separator {
     margin-bottom: 20px;
 }
+
+.section-separator-top {
+    margin-top: 20px;
+}
+
+.settings-title {
+    font-size: var(--font-size-regular);
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    color: var(--color-default);
+}
+
+TabView {
+    flex-direction: column;
+}
+
+TabView > .unity-tabs-container__nav {
+    flex-direction: row;
+}
+
+TabView .unity-tab {
+    height: var(--height-element);
+    margin-top: var(--button-top-margin);
+    background-color: var(--color-primary);
+    border-color: var(--color-border);
+    border-width: var(--border-width);
+    color: var(--color-default);
+}
+
+TabView .unity-tab:hover {
+    background-color: var(--color-hovered);
+}
+
+TabView .unity-tab:checked {
+    background-color: var(--color-active);
+    border-color: var(--color-border-focused);
+}
+
+TabView > .unity-tabs-container__content {
+    padding: 8px;
+}
+
+DropdownField {
+    height: var(--height-element);
+    margin-top: var(--button-top-margin);
+    background-color: rgba(0, 0, 0, 0);
+    border-color: var(--color-border);
+    border-width: var(--border-width);
+    color: var(--color-default);
+}
+
+DropdownField:hover {
+    background-color: var(--color-hovered);
+}
+
+DropdownField:focus {
+    border-color: var(--color-border-focused);
+}
+
+.key-binding-item {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: var(--height-element);
+    margin-top: 4px;
+}
+
+.key-binding-action {
+    flex-grow: 1;
+    -unity-text-align: middle-left;
+    color: var(--color-default);
+}
+
+.key-binding-button {
+    min-width: 160px;
+    height: calc(var(--height-element) - 8px);
+    margin-top: 0;
+    margin-left: 8px;
+}
+
+.rebinding {
+    border-color: var(--color-border-focused);
+    background-color: var(--color-active);
+}
