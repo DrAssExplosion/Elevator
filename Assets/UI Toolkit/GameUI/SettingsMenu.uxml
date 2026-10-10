@@ -1,40 +1,40 @@
-<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:ui="UnityEngine.UIElements"
+         xmlns:uie="UnityEditor.UIElements"
+         noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd"
+         editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/GameUI/GameUIStyleSheet.uss?fileID=7433441132597879392&amp;guid=35b9b2a65173fdb47ad41dfdb0b5a02a&amp;type=3#GameUIStyleSheet" />
+    <ui:Template name="KeyBindingItem" src="project://database/Assets/UI%20Toolkit/GameUI/KeyBindingItem.uxml?fileID=...&amp;guid=...&amp;type=3#KeyBindingItem" />
     <ui:VisualElement name="Canvas" picking-mode="Ignore" class="canvas canvas-transparent-background">
-        <ui:VisualElement name="Container" picking-mode="Ignore" class="container">
+        <ui:VisualElement name="HidingBackground" picking-mode="Ignore" class="background" />
+        <ui:VisualElement name="Container" picking-mode="Ignore" class="container" style="height: auto;">
             <ui:VisualElement name="UIWrapper" picking-mode="Ignore">
                 <ui:VisualElement name="SettingsPanel" picking-mode="Ignore">
                     <ui:Label text="Settings" name="SettingsTitle" class="settings-title section-separator" />
                     <ui:TabView name="SettingsTabs">
-                        <ui:VisualElement name="ControlsTab" title="Controls">
-                            <ui:Label text="Mouse Sensitivity" name="MouseSensitivityLabel" />
-                            <ui:Slider name="MouseSensitivitySlider" low-value="0.1" high-value="10" value="3.7" show-label="false" />
-                            <ui:Label text="Key Bindings" name="KeyBindingsLabel" class="section-separator-top" />
-                            <ui:ListView name="KeyBindingsList" selection-type="Single" pickable="true">
-                                <ui:Template name="KeyBindingItem">
-                                    <ui:VisualElement class="key-binding-item input-container">
-                                        <ui:Label name="ActionName" class="key-binding-action" />
-                                        <ui:Button name="RebindButton" class="key-binding-button" />
-                                    </ui:VisualElement>
-                                </ui:Template>
-                            </ui:ListView>
+                        <ui:VisualElement name="ControlsTab" label="Controls">
+                            <ui:Label text="Mouse Sensitivity" name="MouseSensitivityLabel" picking-mode="Ignore" />
+                            <ui:Slider name="MouseSensitivitySlider" low-value="0.1" high-value="10" value="3.7" show-input-field="false" />
+                            <ui:Label text="Key Bindings" name="KeyBindingsLabel" class="section-separator-top" picking-mode="Ignore" />
+                            <ui:ListView name="KeyBindingsList" selection-type="Single" />
                         </ui:VisualElement>
-                        <ui:VisualElement name="GameplayTab" title="Gameplay">
-                            <ui:Label text="Audio Input Source" name="AudioInputSourceLabel" />
-                            <ui:DropdownField name="AudioInputSourceDropdown" value="" />
-                            <ui:Label text="Microphone Volume" name="MicrophoneVolumeLabel" />
-                            <ui:Slider name="MicrophoneVolumeSlider" low-value="0" high-value="1" value="1" show-label="false" class="section-separator" />
-                            <ui:Label text="Audio Output Source" name="AudioOutputSourceLabel" />
-                            <ui:DropdownField name="AudioOutputSourceDropdown" value="" />
-                            <ui:Label text="Audio Volume" name="AudioVolumeLabel" />
-                            <ui:Slider name="AudioVolumeSlider" low-value="0" high-value="1" value="1" show-label="false" class="section-separator" />
+                        <ui:VisualElement name="GameplayTab" label="Gameplay">
+                            <ui:Label text="Audio Input Source" name="AudioInputSourceLabel" picking-mode="Ignore" />
+                            <ui:DropdownField name="AudioInputSourceDropdown" />
+                            <ui:Label text="Microphone Volume" name="MicrophoneVolumeLabel" picking-mode="Ignore" />
+                            <ui:Slider name="MicrophoneVolumeSlider" low-value="0" high-value="1" value="1" show-input-field="false" class="section-separator" />
+                            <ui:Label text="Audio Output Source" name="AudioOutputSourceLabel" picking-mode="Ignore" />
+                            <ui:DropdownField name="AudioOutputSourceDropdown" />
+                            <ui:Label text="Audio Volume" name="AudioVolumeLabel" picking-mode="Ignore" />
+                            <ui:Slider name="AudioVolumeSlider" low-value="0" high-value="1" value="1" show-input-field="false" class="section-separator" />
                         </ui:VisualElement>
-                        <ui:VisualElement name="LanguageTab" title="Language">
-                            <ui:Label text="Language" name="LanguageLabel" />
-                            <ui:DropdownField name="LanguageDropdown" value="English" />
+                        <ui:VisualElement name="LanguageTab" label="Language">
+                            <ui:Label text="Language" name="LanguageLabel" picking-mode="Ignore" />
+                            <ui:DropdownField name="LanguageDropdown" />
                         </ui:VisualElement>
                     </ui:TabView>
-                    <ui:Button text="Back" name="BackButton" tabindex="0" />
+                    <ui:VisualElement name="Seperator" style="flex-grow: 1; height: 16px;" />
+                    <ui:Button text="Back" name="BackButton" tabindex="1" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

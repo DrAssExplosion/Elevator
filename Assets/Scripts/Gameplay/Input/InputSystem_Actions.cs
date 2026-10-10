@@ -197,26 +197,22 @@ namespace Unity.MP_FPS
                 {
                     ""name"": ""RebindCurrentControl"",
                     ""type"": ""Button"",
-                    ""id"": ""22ff8a53-06ec-4847-b866-720edbec1c34"",
-                    ""interactions"": """",
-                    ""codename"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""deprecated"": false,
+                    ""id"": ""f89bba50-2d1c-4ad7-a952-0a7a44791d8d"",
                     ""expectedControlType"": ""Button"",
-                    ""initialStateCheck"": false
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
                 },
                 {
                     ""name"": ""CancelRebind"",
                     ""type"": ""Button"",
-                    ""id"": ""b20327d0-6b8c-4fa0-ad35-bfb0d0e7af3f"",
-                    ""interactions"": """",
-                    ""codename"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""deprecated"": false,
+                    ""id"": ""860ea335-8281-433a-85e4-603a75a4fffd"",
                     ""expectedControlType"": ""Button"",
-                    ""initialStateCheck"": false
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
                 }
             ],
             ""bindings"": [
@@ -629,8 +625,8 @@ namespace Unity.MP_FPS
                 },
                 {
                     ""name"": ""RebindCurrentControl"",
-                    ""id"": ""2912ab48-9318-4656-bde5-5b93741a1846"",
-                    ""path"": null,
+                    ""id"": ""1ce20643-1f16-4a4d-9e9e-812b845f0422"",
+                    ""path"": """",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -640,8 +636,8 @@ namespace Unity.MP_FPS
                 },
                 {
                     ""name"": ""CancelRebind"",
-                    ""id"": ""399ed55f-2f6a-43f0-9abb-666eec06acd4"",
-                    ""path"": null,
+                    ""id"": ""c3d1a6ef-6565-4e2b-856b-1814c5debf1f"",
+                    ""path"": """",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -1539,6 +1535,8 @@ namespace Unity.MP_FPS
             m_Player_Previous = m_Player.FindAction("Previous", throwIfNotFound: true);
             m_Player_Next = m_Player.FindAction("Next", throwIfNotFound: true);
             m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
+            m_Player_RebindCurrentControl = m_Player.FindAction("RebindCurrentControl", throwIfNotFound: true);
+            m_Player_CancelRebind = m_Player.FindAction("CancelRebind", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1653,6 +1651,8 @@ namespace Unity.MP_FPS
         private readonly InputAction m_Player_Previous;
         private readonly InputAction m_Player_Next;
         private readonly InputAction m_Player_Sprint;
+        private readonly InputAction m_Player_RebindCurrentControl;
+        private readonly InputAction m_Player_CancelRebind;
         /// <summary>
         /// Provides access to input actions defined in input action map "Player".
         /// </summary>
@@ -1704,6 +1704,14 @@ namespace Unity.MP_FPS
             /// Provides access to the underlying input action "Player/Sprint".
             /// </summary>
             public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/RebindCurrentControl".
+            /// </summary>
+            public InputAction @RebindCurrentControl => m_Wrapper.m_Player_RebindCurrentControl;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/CancelRebind".
+            /// </summary>
+            public InputAction @CancelRebind => m_Wrapper.m_Player_CancelRebind;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -1760,6 +1768,12 @@ namespace Unity.MP_FPS
                 @Sprint.started += instance.OnSprint;
                 @Sprint.performed += instance.OnSprint;
                 @Sprint.canceled += instance.OnSprint;
+                @RebindCurrentControl.started += instance.OnRebindCurrentControl;
+                @RebindCurrentControl.performed += instance.OnRebindCurrentControl;
+                @RebindCurrentControl.canceled += instance.OnRebindCurrentControl;
+                @CancelRebind.started += instance.OnCancelRebind;
+                @CancelRebind.performed += instance.OnCancelRebind;
+                @CancelRebind.canceled += instance.OnCancelRebind;
             }
 
             /// <summary>
@@ -1801,6 +1815,12 @@ namespace Unity.MP_FPS
                 @Sprint.started -= instance.OnSprint;
                 @Sprint.performed -= instance.OnSprint;
                 @Sprint.canceled -= instance.OnSprint;
+                @RebindCurrentControl.started -= instance.OnRebindCurrentControl;
+                @RebindCurrentControl.performed -= instance.OnRebindCurrentControl;
+                @RebindCurrentControl.canceled -= instance.OnRebindCurrentControl;
+                @CancelRebind.started -= instance.OnCancelRebind;
+                @CancelRebind.performed -= instance.OnCancelRebind;
+                @CancelRebind.canceled -= instance.OnCancelRebind;
             }
 
             /// <summary>
@@ -2344,6 +2364,20 @@ namespace Unity.MP_FPS
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnSprint(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "RebindCurrentControl" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnRebindCurrentControl(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "CancelRebind" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnCancelRebind(InputAction.CallbackContext context);
         }
         /// <summary>
         /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

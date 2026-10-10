@@ -384,10 +384,10 @@ namespace Unity.MP_FPS
         public void ApplySettings()
         {
             if (!string.IsNullOrEmpty(m_AudioOutputDevice))
-                AudioOutputConfiguration.SetOutputDevice(m_AudioOutputDevice);
+                //AudioOutputConfiguration.SetOutputDevice(m_AudioOutputDevice);
 
             Localization.SetLanguage(m_Language);
-            ApplyAudioVolume();
+            //ApplyAudioVolume();
         }
 
         /// <summary>
@@ -395,7 +395,7 @@ namespace Unity.MP_FPS
         /// The project's SoundSystem routes its emitters through the built-in audio listener, so scaling
         /// <c>AudioListener.volume</c> is what actually changes the perceived master volume.
         /// </summary>
-        public void ApplyAudioVolume() => UnityEngine.Audio.AudioListener.volume = m_AudioVolume;
+        //public void ApplyAudioVolume() => UnityEngine.Audio.AudioListener.volume = m_AudioVolume;
 
         bool m_MainMenuSceneLoaded;
         public bool MainMenuSceneLoaded

@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:VisualElement class="key-binding-item input-container" picking-mode="Ignore">
+        <ui:Label name="ActionName" class="key-binding-action" picking-mode="Ignore" />
+        <ui:Button name="RebindButton" class="key-binding-button" />
+    </ui:VisualElement>
+</ui:UXML>
