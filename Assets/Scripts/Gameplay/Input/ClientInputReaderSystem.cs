@@ -103,5 +103,17 @@ public partial class ClientInputReaderSystem : SystemBase
         playerInput.SetFlag(PlayerInput.InputFlag.Jump, controls.Player.Jump.triggered);
         playerInput.SetFlag(PlayerInput.InputFlag.Shoot, controls.FPS.ShootSingle.IsPressed());
         playerInput.SetFlag(PlayerInput.InputFlag.Reload, controls.FPS.Reload.triggered);
+
+        // Drag & drop (Skyrim-подобное удержание предметов): E — взять, RMB — отпустить.
+        // Действия опциональны: если их нет в .inputactions-ассете, используется привязка по умолчанию.
+        if (controls.FindAction("Grab") != null)
+            playerInput.SetFlag(PlayerInput.InputFlag.Grab, controls.FindAction("Grab").IsPressed());
+        else
+            playerInput.SetFlag(PlayerInput.InputFlag.Grab, UnityEngine.Input.GetKeyDown(KeyCode.E));
+
+        if (controls.FindAction("Drop") != null)
+            playerInput.SetFlag(PlayerInput.InputFlag.Drop, controls.FindAction("Drop").WasPerformedThisFrame());
+        else
+            playerInput.SetFlag(PlayerInput.InputFlag.Drop, UnityEngine.Input.GetMouseButtonUp(1));
     }
 }
