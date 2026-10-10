@@ -9,7 +9,9 @@ public struct PlayerInput
     {
         Jump = 1 << 0,
         Shoot = 1 << 1,
-        Reload = 1 << 3
+        Grab = 1 << 2,   // взять предмет (drag and drop, как в Skyrim)
+        Reload = 1 << 3,
+        Drop = 1 << 4    // отпустить удерживаемый предмет
     }
 
     public float2 MoveInput;
@@ -19,7 +21,9 @@ public struct PlayerInput
 
     public bool Jump => (InputFlags & (uint)InputFlag.Jump) != 0;
     public bool Shoot => (InputFlags & (uint)InputFlag.Shoot) != 0;
+    public bool Grab => (InputFlags & (uint)InputFlag.Grab) != 0;
     public bool Reload => (InputFlags & (uint)InputFlag.Reload) != 0;
+    public bool Drop => (InputFlags & (uint)InputFlag.Drop) != 0;
 
     public void SetFlag(InputFlag flag, bool set)
     {
